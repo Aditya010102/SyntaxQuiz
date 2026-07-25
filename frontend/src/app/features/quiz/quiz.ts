@@ -13,6 +13,7 @@ import { TimerComponent } from '../../shared/components/timer/timer';
 import { QuestionPaletteComponent } from '../../shared/components/question-palette/question-palette';
 import { ResultService } from '../../core/services/result.service';
 import { FavoriteService } from '../../core/services/favorite.service';
+import { AlertService } from '../../core/services/alert.service';
 
 @Component({
   selector: 'app-quiz',
@@ -29,6 +30,7 @@ export class QuizComponent implements OnInit {
   private router: Router = inject(Router);
   private resultService = inject(ResultService);
   private favoriteService = inject(FavoriteService);
+  private alert = inject(AlertService)
 
   subjectId = 0;
 

@@ -1,14 +1,17 @@
 # Angular
 frontend/node_modules/
-frontend/node_modules.zip
-.angular/
+frontend/.angular/
+frontend/dist/
 
 # Python
 backend/venv/
 backend/__pycache__/
 *.pyc
 
-# VS Code
+# Environment variables
+backend/.env
+
+# IDE
 .vscode/
 
 # Logs

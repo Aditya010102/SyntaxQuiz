@@ -9,6 +9,7 @@ import {
 import { Router } from '@angular/router';
 
 import { ProfileService } from '../../core/services/profile.service';
+import { AlertService } from '../../core/services/alert.service';
 
 @Component({
   selector: 'app-change-password',
@@ -29,7 +30,8 @@ export class ChangePasswordComponent {
   constructor(
     private fb: FormBuilder,
     private profileService: ProfileService,
-    private router: Router
+    private router: Router,
+    private alert: AlertService
   ) {
 
     this.form = this.fb.group({
@@ -60,7 +62,7 @@ export class ChangePasswordComponent {
 
     if (value.new_password !== value.confirm_password) {
 
-      alert('Passwords do not match.');
+      this.alert.error("password do not match")
 
       return;
 
@@ -84,7 +86,7 @@ export class ChangePasswordComponent {
 
       error: (err) => {
 
-        alert(err.error.message);
+        this.alert.error("Error!!")
 
       }
 
