@@ -277,3 +277,17 @@ button:disabled {
     text-decoration: underline;
 
 }
+
+.divider {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin: 20px 0;
+
+    color: #888888;
+
+}

@@ -19,9 +19,24 @@ class User(db.Model):
         nullable=False
     )
 
+    # Changed
     password = db.Column(
         db.String(255),
-        nullable=False
+        nullable=True
+    )
+
+    # New
+    provider = db.Column(
+        db.String(20),
+        nullable=False,
+        default="local"
+    )
+
+    # New
+    google_id = db.Column(
+        db.String(255),
+        unique=True,
+        nullable=True
     )
 
     role = db.Column(
@@ -40,5 +55,4 @@ class User(db.Model):
     )
 
     def __repr__(self):
-
         return f"<User {self.email}>"

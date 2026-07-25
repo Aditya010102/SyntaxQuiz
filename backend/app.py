@@ -104,7 +104,7 @@ app.register_blueprint(
 @app.route('/')
 def home():
     return {
-        "message": "CodeQuest API Running"
+        "message": "SyntaxQuiz API Running"
     }
 
 if __name__ == '__main__':
@@ -117,6 +117,7 @@ if __name__ == '__main__':
         from models.result_model import QuizResult
         from models.favorite_model import FavoriteQuestion
         from models.result_answer_model import ResultAnswer
-       
+        
+        db.create_all()
 
     app.run(debug=True)

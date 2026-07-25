@@ -10,6 +10,14 @@ import { Router, RouterLink } from '@angular/router';
 
 import { AuthService } from '../../../core/services/auth.service';
 import { LoginRequest } from '../../../shared/interfaces/user.interface';
+import {
+  AfterViewInit,
+  ElementRef,
+  ViewChild
+} from '@angular/core';
+import { GoogleAuthService } from '../../../core/services/google-auth.service';
+
+
 
 @Component({
   selector: 'app-login',
@@ -22,12 +30,58 @@ import { LoginRequest } from '../../../shared/interfaces/user.interface';
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
-export class LoginComponent {
+export class LoginComponent implements AfterViewInit {
 
   private authService = inject(AuthService);
   private router = inject(Router);
   private fb = inject(FormBuilder);
+  private googleAuth = inject(GoogleAuthService);
 
+  @ViewChild('googleButton', { static: true })
+  googleButton!: ElementRef;
+  ngAfterViewInit(): void {
+
+    this.googleAuth.initializeGoogle(
+
+      (response: any) => {
+        this.authService.googleLogin(
+          response.credential
+        ).subscribe({
+
+          next: (res) => {
+
+            this.authService.saveUser(res);
+
+            if (res.user.role === 'admin') {
+
+              this.router.navigate(['/admin/dashboard']);
+
+            } else {
+
+              this.router.navigate(['/dashboard']);
+
+            }
+
+          },
+
+          error: (err) => {
+
+            console.error(err);
+
+            this.errorMessage = err.error.message;
+
+          }
+
+        });
+      }
+
+    );
+
+    this.googleAuth.renderButton(
+      this.googleButton.nativeElement
+    );
+
+  }
   loginForm: FormGroup = this.fb.group({
 
     email: [

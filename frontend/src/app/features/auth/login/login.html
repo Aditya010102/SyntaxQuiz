@@ -5,9 +5,9 @@
 
         <div class="brand">
 
-            <h1>CodeQuest</h1>
+            <h1>SyntazQuiz</h1>
 
-            <p>Master Programming Skills One Quiz At A Time</p>
+            <p>Learn Programming Skills Through Quizzes</p>
 
         </div>
 
@@ -116,11 +116,18 @@
 
                 }
 
-                <button type="submit" [disabled]="loading">
+                <div class="divider">
+                    <button type="submit" [disabled]="loading">
 
-                    {{loading ? 'Signing In...' : 'Login'}}
+                        {{loading ? 'Signing In...' : 'Login'}}
 
-                </button>
+                    </button>
+
+                    <!-- <span>OR</span> -->
+
+                </div>
+
+                <div #googleButton></div>
 
             </form>
 
