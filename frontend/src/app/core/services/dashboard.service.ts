@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -8,7 +9,7 @@ export class DashboardService {
 
     private http = inject(HttpClient);
 
-    private api = 'http://127.0.0.1:5000/api/dashboard';
+    private api = environment.apiUrl
 
     getDashboard() {
         return this.http.get(this.api);
