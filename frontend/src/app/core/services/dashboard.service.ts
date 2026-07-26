@@ -9,10 +9,9 @@ export class DashboardService {
 
     private http = inject(HttpClient);
 
-    private api = environment.apiUrl
+    private api = `${environment.apiUrl}/dashboard`;
 
     getDashboard() {
         return this.http.get(this.api);
     }
-
 }
