@@ -14,7 +14,7 @@ CORS(
     resources={
         r"/api/*": {
             "origins": [
-                "https://syntaxquiz.vercel.app"
+                "https://syntax-quiz-gamma.vercel.app"
             ]
         }
     }
