@@ -1,10 +1,6 @@
 services:
   - type: web
     name: syntaxquiz-api
-    runtime: Docker
+    runtime: docker
     rootDir: backend
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.12.10
+    plan: free
