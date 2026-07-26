@@ -1,0 +1,9 @@
+{
+    "outputDirectory": "dist/cqfrontend/browser",
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ]
+}
