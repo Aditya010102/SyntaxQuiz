@@ -108,16 +108,5 @@ def home():
     }
 
 if __name__ == "__main__":
-    with app.app_context():
-        from models.user_model import User
-        from models.subject_model import Subject
-        from models.question_model import Question
-        from models.question_option_model import QuestionOption
-        from models.result_model import QuizResult
-        from models.favorite_model import FavoriteQuestion
-        from models.result_answer_model import ResultAnswer
-
-        db.create_all()
-        print("✅ Database tables created successfully!")
 
     app.run()
