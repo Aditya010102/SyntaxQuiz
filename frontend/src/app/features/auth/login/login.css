@@ -291,3 +291,13 @@ button:disabled {
     color: #888888;
 
 }
+
+.google-button {
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-top: 20px;
+
+}

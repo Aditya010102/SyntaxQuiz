@@ -41,45 +41,51 @@ export class LoginComponent implements AfterViewInit {
   googleButton!: ElementRef;
   ngAfterViewInit(): void {
 
-    this.googleAuth.initializeGoogle(
+    this.googleAuth.loadGoogleScript().then(() => {
 
-      (response: any) => {
-        this.authService.googleLogin(
-          response.credential
-        ).subscribe({
+      this.googleAuth.initializeGoogle(
 
-          next: (res) => {
+        (response: any) => {
 
-            this.authService.saveUser(res);
+          this.authService.googleLogin(response.credential).subscribe({
 
-            if (res.user.role === 'admin') {
+            next: (res) => {
 
-              this.router.navigate(['/admin/dashboard']);
+              this.authService.saveUser(res);
 
-            } else {
+              if (res.user.role === 'admin') {
 
-              this.router.navigate(['/dashboard']);
+                this.router.navigate(['/admin/dashboard']);
+
+              } else {
+
+                this.router.navigate(['/dashboard']);
+
+              }
+
+            },
+
+            error: (err) => {
+
+              console.error(err);
+
+              this.errorMessage = err.error.message;
 
             }
 
-          },
+          });
 
-          error: (err) => {
+        }
 
-            console.error(err);
+      );
 
-            this.errorMessage = err.error.message;
+      this.googleAuth.renderButton(
 
-          }
+        this.googleButton.nativeElement
 
-        });
-      }
+      );
 
-    );
-
-    this.googleAuth.renderButton(
-      this.googleButton.nativeElement
-    );
+    });
 
   }
   loginForm: FormGroup = this.fb.group({

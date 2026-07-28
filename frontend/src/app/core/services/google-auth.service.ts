@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { AuthResponse } from '../../shared/interfaces/user.interface';
-import { API } from '../constants/api.constants';
 import { HttpClient } from '@angular/common/http';
+
+import { environment } from '../../../environments/environment';
+import { API } from '../constants/api.constants';
+import { AuthResponse } from '../../shared/interfaces/user.interface';
 
 declare const google: any;
 
@@ -10,17 +11,67 @@ declare const google: any;
     providedIn: 'root'
 })
 export class GoogleAuthService {
+
     private http = inject(HttpClient);
 
-    initializeGoogle(
-        callback: (response: any) => void
-    ): void {
+    private scriptLoaded = false;
+
+    loadGoogleScript(): Promise<void> {
+
+        return new Promise((resolve, reject) => {
+
+            // Already loaded
+            if (this.scriptLoaded || (window as any).google?.accounts?.id) {
+                this.scriptLoaded = true;
+                resolve();
+                return;
+            }
+
+            const existingScript = document.getElementById('google-client');
+
+            if (existingScript) {
+
+                existingScript.addEventListener('load', () => {
+                    this.scriptLoaded = true;
+                    resolve();
+                });
+
+                return;
+            }
+
+            const script = document.createElement('script');
+
+            script.src = 'https://accounts.google.com/gsi/client';
+
+            script.async = true;
+
+            script.defer = true;
+
+            script.id = 'google-client';
+
+            script.onload = () => {
+
+                this.scriptLoaded = true;
+
+                resolve();
+
+            };
+
+            script.onerror = () => reject();
+
+            document.head.appendChild(script);
+
+        });
+
+    }
+
+    initializeGoogle(callback: (response: any) => void): void {
 
         google.accounts.id.initialize({
 
             client_id: environment.googleClientId,
 
-            callback: callback
+            callback
 
         });
 
@@ -28,21 +79,17 @@ export class GoogleAuthService {
 
     renderButton(element: HTMLElement): void {
 
-        google.accounts.id.renderButton(
+        element.innerHTML = '';
 
-            element,
+        google.accounts.id.renderButton(element, {
 
-            {
+            theme: 'outline',
 
-                theme: 'outline',
+            size: 'large',
 
-                size: 'large',
+            width: 350
 
-                width: 350
-
-            }
-
-        );
+        });
 
     }
 
@@ -52,11 +99,7 @@ export class GoogleAuthService {
 
             API.BASE_URL + API.AUTH + '/google',
 
-            {
-
-                idToken
-
-            }
+            { idToken }
 
         );
 
