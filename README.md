@@ -333,7 +333,7 @@ https://github.com/Aditya010102
 
 ### LinkedIn
 
-https://linkedin.com/in/<Aditya Tiwari
+
 
 LinkedIn: https://linkedin.com/in/adityatiwari112
 
