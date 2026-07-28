@@ -14,8 +14,8 @@ with app.app_context():
     else:
         admin = User(
             full_name="Administrator",
-            email="admin@syntaxquiz.com",
-            password=generate_password_hash("Admin@123"),
+            email="youradminpassword@gmail.com",
+            password=generate_password_hash("yourpassword@123"),
             role="admin",
             provider="local"
         )
