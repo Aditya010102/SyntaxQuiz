@@ -232,6 +232,18 @@ GOOGLE_CLIENT_ID=your_google_client_id
 
 ---
 
+## Create Admin
+
+Run:
+
+python seed_admin.py
+
+The script will ask you for:
+
+- Admin Name
+- Admin Email
+- Admin Password
+
 # 📡 REST API
 
 ## Authentication
